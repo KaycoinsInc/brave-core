@@ -38,18 +38,15 @@ class CheckoutMessageHandler : public content::WebUIMessageHandler {
 
   // Message handlers
   void OnGetWalletBalance(const base::ListValue* args);
-  void OnGetExternalWallet(const base::ListValue* args);
-  void OnGetRewardsEnabled(const base::ListValue* args);
+  void GetExternalWallet(const base::ListValue* args);
 
   // Rewards service callbacks
-  void FetchBalanceCallback(int32_t status,
-                            std::unique_ptr<brave_rewards::Balance> balance);
+  void FetchBalanceCallback(const ledger::type::Result result,
+                            ledger::type::BalancePtr balance);
 
-  void GetExternalWalletCallback(
-      int32_t status,
-      std::unique_ptr<brave_rewards::ExternalWallet> wallet);
-
-  void GetRewardsMainEnabledCallback(bool enabled);
+  void GetUpholdWalletCallback(
+      const ledger::type::Result result,
+      ledger::type::UpholdWalletPtr wallet);
 
   RewardsService* rewards_service_ = nullptr;  // NOT OWNED
   base::WeakPtrFactory<CheckoutMessageHandler> weak_factory_;
@@ -80,12 +77,7 @@ void CheckoutMessageHandler::RegisterMessages() {
 
   web_ui()->RegisterMessageCallback(
       "getExternalWallet",
-      base::BindRepeating(&CheckoutMessageHandler::OnGetExternalWallet,
-                          base::Unretained(this)));
-
-  web_ui()->RegisterMessageCallback(
-      "getRewardsEnabled",
-      base::BindRepeating(&CheckoutMessageHandler::OnGetRewardsEnabled,
+      base::BindRepeating(&CheckoutMessageHandler::GetExternalWallet,
                           base::Unretained(this)));
 }
 
@@ -98,86 +90,63 @@ void CheckoutMessageHandler::OnGetWalletBalance(const base::ListValue* args) {
   }
 }
 
-void CheckoutMessageHandler::OnGetExternalWallet(const base::ListValue* args) {
+void CheckoutMessageHandler::GetExternalWallet(const base::ListValue* args) {
   if (auto* service = GetRewardsService()) {
     AllowJavascript();
-    service->GetExternalWallet(
-        "uphold",  // TODO(zenparsing): Take from params?
-        base::BindOnce(&CheckoutMessageHandler::GetExternalWalletCallback,
+    service->GetUpholdWallet(
+        base::BindOnce(&CheckoutMessageHandler::GetUpholdWalletCallback,
                        weak_factory_.GetWeakPtr()));
   }
 }
 
-void CheckoutMessageHandler::OnGetRewardsEnabled(const base::ListValue* args) {
-  if (auto* service = GetRewardsService()) {
-    AllowJavascript();
-    service->GetRewardsMainEnabled(
-        base::Bind(&CheckoutMessageHandler::GetRewardsMainEnabledCallback,
-                   weak_factory_.GetWeakPtr()));
-  }
-}
-
 void CheckoutMessageHandler::FetchBalanceCallback(
-    int32_t status,
-    std::unique_ptr<brave_rewards::Balance> balance) {
-  if (!IsJavascriptAllowed())
+    const ledger::type::Result result,
+    ledger::type::BalancePtr balance) {
+  if (!IsJavascriptAllowed()) {
     return;
+  }
 
-  base::Value response(base::Value::Type::DICTIONARY);
-  response.SetIntKey("status", status);
+  base::Value data(base::Value::Type::DICTIONARY);
+  data.SetIntKey("status", static_cast<int>(result));
 
-  if (status == 0 && balance) {
-    base::Value details(base::Value::Type::DICTIONARY);
-    details.SetDoubleKey("total", balance->total);
-
-    base::Value rates_dict(base::Value::Type::DICTIONARY);
-    for (auto& pair : balance->rates) {
-      rates_dict.SetDoubleKey(pair.first, pair.second);
+  if (result == ledger::type::Result::LEDGER_OK && balance) {
+    base::Value wallets(base::Value::Type::DICTIONARY);
+    for (const auto& wallet : balance->wallets) {
+      wallets.SetDoubleKey(wallet.first, wallet.second);
     }
-    details.SetKey("rates", std::move(rates_dict));
 
-    response.SetKey("details", std::move(details));
+    base::Value balance_value(base::Value::Type::DICTIONARY);
+    balance_value.SetDoubleKey("total", balance->total);
+    balance_value.SetKey("wallets", std::move(wallets));
+
+    data.SetKey("balance", std::move(balance_value));
   }
 
-  FireWebUIListener("walletBalanceUpdated", response);
+  FireWebUIListener("balanceUpdated", data);
 }
 
-void CheckoutMessageHandler::GetExternalWalletCallback(
-    int32_t status,
-    std::unique_ptr<brave_rewards::ExternalWallet> wallet) {
-  if (!IsJavascriptAllowed())
+void CheckoutMessageHandler::GetUpholdWalletCallback(
+    const ledger::type::Result result,
+    ledger::type::UpholdWalletPtr wallet) {
+  if (!IsJavascriptAllowed()) {
     return;
-
-  base::Value response(base::Value::Type::DICTIONARY);
-  response.SetIntKey("status", status);
-
-  if (status == 0 && wallet) {
-    // TODO(zenparsing): Do we need all of this?
-    base::Value details(base::Value::Type::DICTIONARY);
-    details.SetStringKey("token", wallet->token);
-    details.SetStringKey("address", wallet->address);
-    // TODO(zenparsing): Would prefer to return string enum rather than int
-    details.SetIntKey("status", static_cast<int>(wallet->status));
-    details.SetStringKey("type", wallet->type);
-    details.SetStringKey("verifyUrl", wallet->verify_url);
-    details.SetStringKey("addUrl", wallet->add_url);
-    details.SetStringKey("withdrawUrl", wallet->withdraw_url);
-    details.SetStringKey("userName", wallet->user_name);
-    details.SetStringKey("accountUrl", wallet->account_url);
-
-    response.SetKey("details", std::move(details));
   }
 
-  FireWebUIListener("externalWalletUpdated", response);
-}
+  base::Value data(base::Value::Type::DICTIONARY);
 
-void CheckoutMessageHandler::GetRewardsMainEnabledCallback(bool enabled) {
-  if (!IsJavascriptAllowed())
-    return;
+  if (wallet) {
+    data.SetStringKey("token", wallet->token);
+    data.SetStringKey("address", wallet->address);
+    data.SetStringKey("verifyUrl", wallet->verify_url);
+    data.SetStringKey("addUrl", wallet->add_url);
+    data.SetStringKey("withdrawUrl", wallet->withdraw_url);
+    data.SetStringKey("userName", wallet->user_name);
+    data.SetStringKey("accountUrl", wallet->account_url);
+    data.SetStringKey("loginUrl", wallet->login_url);
+    data.SetIntKey("status", static_cast<int>(wallet->status));
+  }
 
-  base::Value response(base::Value::Type::DICTIONARY);
-  response.SetBoolKey("rewardsEnabled", enabled);
-  FireWebUIListener("rewardsEnabledUpdated", response);
+  FireWebUIListener("externalWalletUpdated", data);
 }
 
 }  // namespace

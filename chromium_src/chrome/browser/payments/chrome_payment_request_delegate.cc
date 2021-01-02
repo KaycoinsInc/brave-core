@@ -9,11 +9,13 @@
 #include "components/payments/content/payment_request_state.h"
 
 #define BRAVE_SHOW_BAT_PAYMENT_UI                                              \
+  auto* rfh = content::RenderFrameHost::FromID(frame_routing_id_);             \
+  auto* web_contents = content::WebContents::FromRenderFrameHost(rfh);         \
   if (request->spec() &&                                                       \
       request->spec()->stringified_method_data().count("bat") > 0) {           \
   	std::unique_ptr<BatPaymentApp> app = std::make_unique<BatPaymentApp>();    \
   	request->state()->OnPaymentAppCreated(std::move(app));                     \
-    brave_rewards::ShowCheckoutDialog(web_contents_, request);                 \
+    brave_rewards::ShowCheckoutDialog(web_contents, request);                  \
     return;                                                                    \
   }
 #include "../../../../../chrome/browser/payments/chrome_payment_request_delegate.cc"

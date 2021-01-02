@@ -30,10 +30,9 @@ interface AppProps {
 
 export function App (props: AppProps) {
   const [flowState, setFlowState] = React.useState<FlowState>('start')
-  const [rateInfo, setRateInfo] = React.useState<ExchangeRateInfo | null>(null)
-  const [walletInfo, setWalletInfo] = React.useState<WalletInfo | null>(null)
+  const [rateInfos, setRateInfo] = React.useState<ExchangeRateInfo | null>(null)
+  const [walletInfos, setWalletInfo] = React.useState<WalletInfo | null>(null)
   const [orderInfo, setOrderInfo] = React.useState<OrderInfo | null>(null)
-  const [rewardsEnabled, setRewardsEnabled] = React.useState(false)
 
   const showTitle =
     flowState !== 'payment-complete'
@@ -46,12 +45,27 @@ export function App (props: AppProps) {
     props.host.setListener({
       onWalletUpdated: setWalletInfo,
       onExchangeRatesUpdated: setRateInfo,
-      onOrderUpdated: setOrderInfo,
-      onRewardsEnabledUpdated: setRewardsEnabled
+      onOrderUpdated: setOrderInfo
     })
   }, [props.host])
 
   const onClose = () => { props.host.closeDialog() }
+  
+   const rateInfo = {
+    rates: {"USD": 0.21},
+    lastUpdated: "2021-10-05T14:48:00.000Z" 
+  }
+
+  const walletInfo = {
+    balance: 300,
+    verified: true 
+  }
+
+  console.log(rateInfos);
+  console.log(walletInfos);
+  console.log(rateInfo);
+  console.log(walletInfo);
+  console.log(orderInfo);
 
   if (!rateInfo || !walletInfo || !orderInfo) {
     // TODO(zenparsing): Create a loading screen
@@ -90,7 +104,7 @@ export function App (props: AppProps) {
         flowState === 'start' ?
           <PaymentMethodPanel
             canUseCreditCard={false}
-            rewardsEnabled={rewardsEnabled}
+            rewardsEnabled={true}
             orderDescription={orderInfo.description}
             orderTotal={formatTokenValue(orderInfo.total)}
             orderTotalConverted={formatExchange(orderInfo.total)}

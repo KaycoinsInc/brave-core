@@ -84,13 +84,6 @@ export function createHost (): CheckoutHost {
     sendWalletInfo()
   })
 
-  self.cr.addWebUIListener('rewardsEnabledUpdated', (event: any) => {
-    const { rewardsEnabled } = event
-    if (hostListener) {
-      hostListener.onRewardsEnabledUpdated(rewardsEnabled)
-    }
-  })
-
   return {
 
     getLocaleString (key: string) {
@@ -118,7 +111,6 @@ export function createHost (): CheckoutHost {
 
       chrome.send('getWalletBalance')
       chrome.send('getExternalWallet')
-      chrome.send('getRewardsEnabled')
 
       queueMicrotask(() => {
         if (hostListener) {

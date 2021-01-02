@@ -7,7 +7,6 @@
 
 #include "base/strings/string_util.h"
 #include "base/strings/utf_string_conversions.h"
-#include "components/payments/core/payment_app.h"
 
 namespace payments {
   BatPaymentApp::BatPaymentApp(): PaymentApp(0, PaymentApp::Type::SERVICE_WORKER_APP) {
@@ -20,11 +19,14 @@ namespace payments {
   uint32_t BatPaymentApp::GetCompletenessScore() const { return 0; }
   bool BatPaymentApp::CanPreselect() const  { return false; }
   base::string16 BatPaymentApp::GetMissingInfoLabel() const  { return base::EmptyString16(); }
-  bool BatPaymentApp::IsValidForCanMakePayment() const { return false; }
   void BatPaymentApp::RecordUse()  { return; }
   bool BatPaymentApp::NeedsInstallation() const { return false; }
+  bool BatPaymentApp::HasEnrolledInstrument() const { return false; }
   base::string16 BatPaymentApp::GetLabel() const {
     return base::ASCIIToUTF16("bat");
+  }
+  std::string BatPaymentApp::GetId() const {
+    return "bat";
   }
   base::string16 BatPaymentApp::GetSublabel() const { return base::EmptyString16(); }
   bool BatPaymentApp::IsValidForModifier(
@@ -32,9 +34,9 @@ namespace payments {
       bool supported_networks_specified,
       const std::set<std::string>& supported_networks) const { return false; }
   base::WeakPtr<PaymentApp> BatPaymentApp::AsWeakPtr() { return weak_ptr_factory_.GetWeakPtr(); }
-  gfx::ImageSkia BatPaymentApp::icon_image_skia() const { return icon_image_; }
   bool BatPaymentApp::HandlesShippingAddress() const { return false; }
   bool BatPaymentApp::HandlesPayerName() const { return false; }
   bool BatPaymentApp::HandlesPayerEmail() const { return false; }
   bool BatPaymentApp::HandlesPayerPhone() const { return false; }
+
 } //namespace payments

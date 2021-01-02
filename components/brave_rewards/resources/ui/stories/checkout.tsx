@@ -85,7 +85,6 @@ storiesOf('Rewards/Checkout', module)
         <DialogFrame showBackground={true} showTitle={true} onClose={onDialogClose}>
           <PaymentMethodPanel
             canUseCreditCard={knobs.boolean('canUseCreditCard', true)}
-            rewardsEnabled={knobs.boolean('rewardsEnabled', true)}
             orderDescription={knobs.text('orderDescription', defaultDescription)}
             orderTotal={knobs.text('orderTotal', '45.0')}
             orderTotalConverted={knobs.text('orderTotalConverted', '$9.00')}

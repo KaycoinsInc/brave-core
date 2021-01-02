@@ -41,7 +41,7 @@ constexpr int kDialogMaxHeight = 800;
 const char kBat[] = "bat";
 
 CheckoutDialogDelegate::CheckoutDialogDelegate(base::Value params,
-                                               PaymentRequest* request)
+                                               base::WeakPtr<PaymentRequest> request)
     : params_(std::move(params)), request_(request) {}
 
 CheckoutDialogDelegate::~CheckoutDialogDelegate() = default;
@@ -109,7 +109,7 @@ bool CheckoutDialogDelegate::ShouldShowDialogTitle() const {
   return false;
 }
 
-CheckoutDialogHandler::CheckoutDialogHandler(PaymentRequest* request)
+CheckoutDialogHandler::CheckoutDialogHandler(base::WeakPtr<PaymentRequest> request)
     : request_(request) {}
 
 CheckoutDialogHandler::~CheckoutDialogHandler() = default;
@@ -137,11 +137,11 @@ void CheckoutDialogHandler::HandlePaymentCompletion(
   request_->OnPaymentResponseAvailable(std::move(response));
 }
 
-void ShowCheckoutDialog(WebContents* initiator, PaymentRequest* request) {
+void ShowCheckoutDialog(WebContents* initiator, base::WeakPtr<PaymentRequest> request) {
   double total;
   std::string description = "";
 
-  auto* spec = request->spec();
+  base::WeakPtr<payments::PaymentRequestSpec> spec = request->spec();
   if (!spec) {
     return;
   }

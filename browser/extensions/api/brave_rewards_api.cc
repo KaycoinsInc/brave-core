@@ -453,7 +453,7 @@ ExtensionFunction::ResponseAction BraveRewardsGetPublisherDataFunction::Run() {
 }
 
 BraveRewardsGetRewardsParametersFunction::
-~BraveRewardsGetRewardsParametersFunction() = default;
+~BraveRewardsGetRewardsParametersFunction() {}
 
 ExtensionFunction::ResponseAction
 BraveRewardsGetRewardsParametersFunction::Run() {
@@ -1227,8 +1227,12 @@ BraveRewardsSaveOnboardingResultFunction::Run() {
   } else {
     NOTREACHED();
   }
+
   return RespondNow(NoArguments());
 }
+
+BraveRewardsShowCheckoutDialogFunction::
+~BraveRewardsShowCheckoutDialogFunction() = default;
 
 ExtensionFunction::ResponseAction
 BraveRewardsShowCheckoutDialogFunction::Run() {

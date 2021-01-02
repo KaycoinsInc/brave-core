@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 
+#include "base/memory/weak_ptr.h"
 #include "content/public/browser/web_ui_message_handler.h"
 #include "ui/web_dialogs/web_dialog_delegate.h"
 
@@ -29,7 +30,7 @@ namespace brave_rewards {
 
 class CheckoutDialogDelegate : public ui::WebDialogDelegate {
  public:
-  CheckoutDialogDelegate(base::Value params, payments::PaymentRequest* request);
+  CheckoutDialogDelegate(base::Value params, base::WeakPtr<payments::PaymentRequest> request);
   ~CheckoutDialogDelegate() override;
 
   ui::ModalType GetDialogModalType() const override;
@@ -48,14 +49,14 @@ class CheckoutDialogDelegate : public ui::WebDialogDelegate {
 
  private:
   base::Value params_;
-  payments::PaymentRequest* request_;
+  base::WeakPtr<payments::PaymentRequest> request_;
 
   DISALLOW_COPY_AND_ASSIGN(CheckoutDialogDelegate);
 };
 
 class CheckoutDialogHandler : public content::WebUIMessageHandler {
  public:
-  explicit CheckoutDialogHandler(payments::PaymentRequest* request);
+  explicit CheckoutDialogHandler(base::WeakPtr<payments::PaymentRequest> request);
   ~CheckoutDialogHandler() override;
 
   // Overridden from WebUIMessageHandler
@@ -64,13 +65,13 @@ class CheckoutDialogHandler : public content::WebUIMessageHandler {
  private:
   void HandlePaymentCompletion(const base::ListValue* args);
 
-  payments::PaymentRequest* request_;
+  base::WeakPtr<payments::PaymentRequest> request_;
 
   DISALLOW_COPY_AND_ASSIGN(CheckoutDialogHandler);
 };
 
 void ShowCheckoutDialog(content::WebContents* initiator,
-                        payments::PaymentRequest* request);
+                        base::WeakPtr<payments::PaymentRequest> request);
 
 }  // namespace brave_rewards
 

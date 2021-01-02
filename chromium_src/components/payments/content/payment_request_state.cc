@@ -10,8 +10,7 @@
     const char kBat[] = "bat";                                                   \
     if (base::StartsWith(available_apps_.back().get()->GetLabel(),               \
     	    base::ASCIIToUTF16(kBat), base::CompareCase::SENSITIVE)) {           \
-        SetSelectedApp(available_apps_.back().get(),                             \
-            SectionSelectionStatus::kAddedSelected);                             \
+        SetSelectedApp(available_apps_.back().get());                            \
      }                                                                           \
   
 #include "../../../../../components/payments/content/payment_request_state.cc"

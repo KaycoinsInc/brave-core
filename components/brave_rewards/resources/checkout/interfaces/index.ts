@@ -21,7 +21,6 @@ export interface CheckoutHostListener {
   onWalletUpdated: (wallet: WalletInfo) => void
   onExchangeRatesUpdated: (exchangeInfo: ExchangeRateInfo) => void
   onOrderUpdated: (order: OrderInfo) => void
-  onRewardsEnabledUpdated: (enabled: boolean) => void
 }
 
 export interface CheckoutHost {

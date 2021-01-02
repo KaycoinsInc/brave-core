@@ -6,7 +6,7 @@
 #ifndef BRAVE_COMPONENTS_PAYMENTS_BAT_PAYMENT_APP_H_
 #define BRAVE_COMPONENTS_PAYMENTS_BAT_PAYMENT_APP_H_
 
-#include "components/payments/core/payment_app.h"
+#include "components/payments/content/payment_app.h"
 
 namespace payments {
 
@@ -20,9 +20,10 @@ class BatPaymentApp : public PaymentApp {
   uint32_t GetCompletenessScore() const override;
   bool CanPreselect() const override;
   base::string16 GetMissingInfoLabel() const override;
-  bool IsValidForCanMakePayment() const override;
+  bool HasEnrolledInstrument() const override;
   void RecordUse() override;
   bool NeedsInstallation() const override;
+  std::string GetId() const override;
   base::string16 GetLabel() const override;
   base::string16 GetSublabel() const override;
   bool IsValidForModifier(
@@ -30,15 +31,12 @@ class BatPaymentApp : public PaymentApp {
       bool supported_networks_specified,
       const std::set<std::string>& supported_networks) const override;
   base::WeakPtr<PaymentApp> AsWeakPtr() override;
-  gfx::ImageSkia icon_image_skia() const override;
   bool HandlesShippingAddress() const override;
   bool HandlesPayerName() const override;
   bool HandlesPayerEmail() const override;
   bool HandlesPayerPhone() const override;
 
  private:
-  gfx::ImageSkia icon_image_;
-
   base::WeakPtrFactory<BatPaymentApp> weak_ptr_factory_{this};
   DISALLOW_COPY_AND_ASSIGN(BatPaymentApp);
 };
