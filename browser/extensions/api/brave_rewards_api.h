@@ -478,7 +478,7 @@ class BraveRewardsSaveOnboardingResultFunction : public ExtensionFunction {
   ~BraveRewardsSaveOnboardingResultFunction() override;
 
   ResponseAction Run() override;
-}
+};
 
 // TODO(zeparsing): Development only
 class BraveRewardsShowCheckoutDialogFunction : public ExtensionFunction {
