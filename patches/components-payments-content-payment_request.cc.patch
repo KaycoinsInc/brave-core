@@ -1,0 +1,13 @@
+diff --git a/components/payments/content/payment_request.cc b/components/payments/content/payment_request.cc
+index ebafd3ccf0242ce1114f0f80b2815a1227b74f17..05300e20129f527b82537cac58dbf070ea8d9073 100644
+--- a/components/payments/content/payment_request.cc
++++ b/components/payments/content/payment_request.cc
+@@ -709,7 +709,7 @@ void PaymentRequest::OnPaymentResponseAvailable(
+ 
+   // Log the correct "selected instrument" metric according to its type and
+   // the method name in response.
+-  DCHECK(state_->selected_app());
++  // DCHECK(state_->selected_app());
+   JourneyLogger::Event selected_event =
+       JourneyLogger::Event::EVENT_SELECTED_OTHER;
+   switch (state_->selected_app()->type()) {

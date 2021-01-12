@@ -1,0 +1,13 @@
+diff --git a/components/payments/content/BUILD.gn b/components/payments/content/BUILD.gn
+index e00eea8136476c0f804367679d3be328c74cd735..cb96aeea3e414293d80adaf9c942361c628cb183 100644
+--- a/components/payments/content/BUILD.gn
++++ b/components/payments/content/BUILD.gn
+@@ -4,6 +4,8 @@
+ 
+ static_library("content") {
+   sources = [
++    "//brave/components/payments/bat_payment_app.cc",
++    "//brave/components/payments/bat_payment_app.h",
+     "android_app_communication.cc",
+     "android_app_communication.h",
+     "android_payment_app.cc",

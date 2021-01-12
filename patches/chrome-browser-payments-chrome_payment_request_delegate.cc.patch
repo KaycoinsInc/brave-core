@@ -1,0 +1,12 @@
+diff --git a/chrome/browser/payments/chrome_payment_request_delegate.cc b/chrome/browser/payments/chrome_payment_request_delegate.cc
+index edc94bd7c755d0545b212b232d10796829652428..1498affbb88aacaf138f6f6bf1788d3335744d8e 100644
+--- a/chrome/browser/payments/chrome_payment_request_delegate.cc
++++ b/chrome/browser/payments/chrome_payment_request_delegate.cc
+@@ -77,6 +77,7 @@ void ChromePaymentRequestDelegate::ShowDialog(
+     base::WeakPtr<PaymentRequest> request) {
+   DCHECK_EQ(nullptr, shown_dialog_.get());
+   DCHECK_EQ(nullptr, spc_dialog_.get());
++  BRAVE_SHOW_BAT_PAYMENT_UI
+ 
+   switch (dialog_type_) {
+     case DialogType::PAYMENT_REQUEST:

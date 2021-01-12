@@ -1,5 +1,5 @@
 diff --git a/chrome/browser/BUILD.gn b/chrome/browser/BUILD.gn
-index 2ce41b55b4052bf79ffffa270bf3e7830edec9e8..b5c4f565b05541c780dc6c97d4ed55a6d987808c 100644
+index 2ce41b55b4052bf79ffffa270bf3e7830edec9e8..ce59edf44849d80a812fed53ce755300c09acfa6 100644
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
 @@ -2432,6 +2432,7 @@ static_library("browser") {
@@ -10,3 +10,11 @@ index 2ce41b55b4052bf79ffffa270bf3e7830edec9e8..b5c4f565b05541c780dc6c97d4ed55a6
  
    if (is_android) {
      sources += [
+@@ -5199,6 +5200,7 @@ static_library("browser") {
+       "payments/payment_request_factory.h",
+     ]
+     deps += [
++      "//brave/browser:sku",
+       "//chrome/browser/ui/webui/discards:mojo_bindings",
+       "//components/autofill/content/browser/webauthn",
+       "//components/media_router/browser",
