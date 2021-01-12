@@ -29,8 +29,8 @@ dependencies = [
 
 [[package]]
 name = "adblock"
-version = "0.3.3"
-source = "git+https://github.com/brave/adblock-rust?rev=dbb0bee71faa6f1812888638dae3559e91008382#dbb0bee71faa6f1812888638dae3559e91008382"
+version = "0.3.4"
+source = "git+https://github.com/brave/adblock-rust?rev=c647890b6d065daf98cba540d2232c100698c498#c647890b6d065daf98cba540d2232c100698c498"
 dependencies = [
  "base64 0.13.0",
  "bitflags",
@@ -52,7 +52,7 @@ dependencies = [
 name = "adblock-ffi"
 version = "0.1.0"
 dependencies = [
- "adblock 0.3.3",
+ "adblock 0.3.4",
  "libc",
  "serde_json",
 ]

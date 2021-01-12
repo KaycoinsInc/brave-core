@@ -95,7 +95,7 @@ void CheckoutDialogDelegate::OnDialogClosed(const std::string& json_retval) {
   }
 
   if (base::CompareCaseInsensitiveASCII(*action, "cancel") == 0) {
-    request_->UserCancelled();
+    request_->OnUserCancelled();
   }
   return;
 }
