@@ -318,7 +318,6 @@ helt til vedkommende verifiserer bidraget, eller til det har gått 90 dager.</tr
 <translation id="7396366757003005317">Fingeravtrykk blokkert (restriktivt; kan gjøre at nettsteder slutter å fungere)</translation>
 <translation id="700453611199558021">Fingeravtrykk er blokkert (standard)</translation>
 <translation id="769702552748212954">Tillat all bruk av fingeravtrykk</translation>
-<translation id="2888409909650566510">Annonser og andre uhyggelige\nting blokkert</translation>
 <translation id="6930134873084561197">Nettsteder inkluderer ofte informasjonskapsler og skript som prøver å identifisere deg og din enhet. De ønsker å finne ut av hvem du er, følge deg på nettet og spore det du gjør på alle nettsider. \n\nBrave blokkerer dette, slik at du kan surfe på nett uten å bli fulgt.</translation>
 <translation id="8553998445606452168">Om Brave Shields</translation>
 <translation id="8912304686498704084">OPP</translation>
@@ -424,22 +423,16 @@ helt til vedkommende verifiserer bidraget, eller til det har gått 90 dager.</tr
 <translation id="8804164990146287819">Personvernerklæring</translation>
 <translation id="6318696841371191107">Ta en rask omvisning</translation>
 <translation id="7930505144430343145">Velkommen til Brave Rewards!</translation>
-<translation id="7909111626803226907">Private Brave-annonser belønner deg med tokener for å støtte innholdsprodusenter, til forskjell fra tradisjonell annonsering, samtidig som personopplysningene dine skjermes.</translation>
 <translation id="6973095375773523904">Hvor vises annonsene?</translation>
-<translation id="3867028444168159102">Private Brave-annonser vil fremstå som normale varslinger. Du bestemmer hvor ofte du ser disse annonsene i innstillinger.</translation>
 <translation id="5816125157889950051">Når mottar du belønninger</translation>
-<translation id="4649471244559455723">De opptjente tokenene dine fra Brave-annonser i løpet av inneværende måned mottar du den 5. i neste måned.</translation>
 <translation id="7712287524451429139">Gi tilbake uten anstrengelser</translation>
 <translation id="105037569026952831">Innholdsprodusenter mottar automatisk token-bidragene basert på engasjementsnivåene dine. Disse måler vi som 'Oppmerksomhet'.</translation>
 <translation id="5323267338679539010">Si takk med tips</translation>
-<translation id="6042317056594735519">Tipsing er en måte å personlig oppmuntre og støtte innhold eller produsenter du elsker. Sett i gang å tipse!</translation>
 <translation id="7509452925943421624">Hva kan du gjøre med tokener?</translation>
-<translation id="7059157883171259940">Tokener kan brukes til mer enn å støtte produsenter. Du kan kjøpe digitale produkter og gavekort med en cashback-bonus.</translation>
 <translation id="1402530520078693620">La oss til slutt få satt deg opp med basisinnstillingene</translation>
 <translation id="3494356595346329740">Du kan endre dette senere.</translation>
 <translation id="6462814326662189004">Hvor ofte vil du se annonser?\n(Annonser per time)</translation>
 <translation id="2134244432345596331">Hvor mye ønsker du å støtte favorittprodusentene dine med?\n(fra annonseinntjeningen din)</translation>
-<translation id="7456161272236175794">JOOOOHOOOOO!\nDu er ferdig!</translation>
 <translation id="3895246934788932488">Ved å bruke Brave Rewards styrker du personvernet ditt og bidrar til å gjøre nettet til et bedre sted for alle. Det er bare fantastisk!</translation>
 <translation id="5705882733397021510">Gå tilbake</translation>
 <translation id="5140321319944305531">La oss ta en rask omvisning</translation>
@@ -452,4 +445,5 @@ helt til vedkommende verifiserer bidraget, eller til det har gått 90 dager.</tr
 <translation id="3604285424134705930">Du konverterte <ph name="FROM_VALUE"/> <ph name="FROM_CURRENCY"/> til <ph name="TO_VALUE"/> <ph name="TO_CURRENCY"/>!</translation>
 <translation id="392587271502873865">Vennligst sjekk nettverksforbindelsen din.</translation>
 <translation id="7889432931837317731">Åpne automatisk når mulig</translation>
+<translation id="1078265935778232285">Velkommen til Brave-nettleseren</translation>
 </translationbundle>
